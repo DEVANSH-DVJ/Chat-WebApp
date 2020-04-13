@@ -12,7 +12,7 @@ export class ChatService {
   user: firebase.User;
   chatMessages: AngularFireList<ChatMessage>;
   chatMessage: ChatMessage;
-  userName: string;
+  username: string;
 
   constructor(
     private db: AngularFireDatabase,
@@ -33,8 +33,8 @@ export class ChatService {
     this.chatMessages.push({
       message: msg,
       timeSent: timestamp,
-      // userName: this.userName,
-      userName: "test-user",
+      // username: this.username,
+      username: "test-user",
       email: email });
 
     console.log('Called sendMessage().')

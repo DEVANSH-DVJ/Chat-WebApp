@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 export class MessageComponent implements OnInit {
 
   @Input() chatMessage: ChatMessage;
-  userName: string;
+  username: string;
   userEmail: string;
   messageContent: string;
   timeStamp: string;
@@ -24,7 +24,7 @@ export class MessageComponent implements OnInit {
     this.messageContent = chatMessage.message;
     this.timeStamp = chatMessage.timeSent;
     this.userEmail = chatMessage.email;
-    this.userName = chatMessage.userName;
+    this.username = chatMessage.username;
   }
 
 }

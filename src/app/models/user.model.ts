@@ -1,5 +1,6 @@
-export class User {
-    uid?: string;
+
+export class UserProfile {
+    $key?: string;
     email?: string;
     username?: string;
     password?: string;
