@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs/Observable';
@@ -9,46 +10,38 @@ import { ChatMessage } from '../models/chat-message.model';
 
 @Injectable()
 export class ChatService {
-  user: firebase.User;
+
   chatMessages: AngularFireList<ChatMessage>;
   chatMessage: ChatMessage;
+  email: string;
   username: string;
 
   constructor(
     private db: AngularFireDatabase,
-    private afAuth: AngularFireAuth
-    ) {
-        // this.afAuth.authState.subscribe(auth => {
-        //   if (auth !== undefined && auth !== null) {
-        //     this.user = auth;
-        //   }
-        // });
+    private afAuth: AngularFireAuth,
+    private router: Router) {
+        this.afAuth.currentUser.then(data => {this.username = data.displayName; this.email = data.email; console.log(data); })
+          .catch(error => {this.router.navigate(['login']); console.log("155");});
     }
 
   sendMessage(msg: string) {
     const timestamp = this.getTimeStamp();
-    // const email = this.user.email;
-    const email = "test@example.com";
     this.chatMessages = this.getMessages();
     this.chatMessages.push({
       message: msg,
       timeSent: timestamp,
-      // username: this.username,
-      username: "test-user",
-      email: email });
-
+      username: this.username,
+      email: this.email });
     console.log('Called sendMessage().')
   }
 
   getMessages(): AngularFireList<ChatMessage> {
-    console.log("odawwosnd");
     return this.db.list('/messages', ref => {
       return ref.limitToLast(25).orderByKey()
     });
   }
 
   getMessagesObservable(): any {
-    console.log("123");
     return this.db.list('/messages', ref => {
       return ref.limitToLast(25).orderByKey()
     }).valueChanges();
