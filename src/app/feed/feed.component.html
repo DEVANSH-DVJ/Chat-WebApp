@@ -1,1 +1,6 @@
-<p>feed works!</p>
+<div class="feed">
+  <div *ngFor="let mesage of feed | async" class="message">
+    <!-- <p>Gravity</p> -->
+    <app-message [chatMessage]=mesage></app-message>
+  </div>
+</div>

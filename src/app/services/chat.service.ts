@@ -41,9 +41,17 @@ export class ChatService {
   }
 
   getMessages(): AngularFireList<ChatMessage> {
+    console.log("odawwosnd");
     return this.db.list('/messages', ref => {
       return ref.limitToLast(25).orderByKey()
     });
+  }
+
+  getMessagesObservable(): any {
+    console.log("123");
+    return this.db.list('/messages', ref => {
+      return ref.limitToLast(25).orderByKey()
+    }).valueChanges();
   }
 
   getTimeStamp() {
