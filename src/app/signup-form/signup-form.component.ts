@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -9,9 +8,11 @@ import { AuthService } from '../services/auth.service';
 })
 export class SignupFormComponent {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  authError: any;
+
+  constructor(private authService: AuthService) { }
 
   signUp(frm) {
-    this.authService.createUser(frm.value);
+    this.authError = this.authService.createUser(frm.value);
   }
 }
