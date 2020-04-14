@@ -24,15 +24,26 @@ export class ChatService {
           .catch(error => {this.router.navigate(['login']); console.log("155");});
     }
 
+  checkIfUndefined(): boolean {
+    if (this.username === undefined || this.username === null) {
+      this.router.navigate(['login']);
+      console.log("155");
+      return true;
+    }
+    else return false;
+  }
+
   sendMessage(msg: string) {
     const timestamp = this.getTimeStamp();
     this.chatMessages = this.getMessages();
-    this.chatMessages.push({
-      message: msg,
-      timeSent: timestamp,
-      username: this.username,
-      email: this.email });
-    console.log('Called sendMessage().')
+    if (this.checkIfUndefined() === false) {
+      this.chatMessages.push({
+        message: msg,
+        timeSent: timestamp,
+        username: this.username,
+        email: this.email });
+      console.log('Called sendMessage().')
+    }
   }
 
   getMessages(): AngularFireList<ChatMessage> {
