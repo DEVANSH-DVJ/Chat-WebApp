@@ -2,9 +2,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
-// import * as firebase from 'firebase/app';
-// import { Observable } from 'rxjs/Observable';
-// import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +25,7 @@ export class AuthService {
         const status = 'online';
         console.log(userCredential.user.uid);
         this.setUserData(user.email, user.displayName, status, userCredential.user.uid);
-        this.router.navigate(['chat'])
+        this.login(user);
       })
       .catch(error => {this.err = error;});
     return this.err;
